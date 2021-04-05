@@ -4,11 +4,11 @@
   "description": "this blog post is about posting and retrieving differentstories of others",
   "main": "server.js",
   "scripts": {
-    "test": "dev-test",
-    "start": "babel-node ./server.js",
+   "test": "dev-test",
+   "start": "babel-node ./server.js",
     
     "dev-start": "babel-node ./server.js"
-  },
+  }
   "repository": {
     "type": "git",
     "url": "git+https://github.com/angepauline/blogpostblack.git"
