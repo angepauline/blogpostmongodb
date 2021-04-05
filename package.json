@@ -8,7 +8,7 @@
    "start": "babel-node ./server.js",
     
     "dev-start": "babel-node ./server.js"
-  }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/angepauline/blogpostblack.git"
