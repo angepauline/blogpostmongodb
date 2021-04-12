@@ -1,72 +1,49 @@
-import blogInfo from "../model/blogpostmodel"
+import blogData from "../model/blogpostmodel"
+import Response from '../Helpers/response'
 class blogcontroller {
     static blogpost = async(req, res) => {
         let {
             title,
             content,
-            Userid
+            UserId
            
         } = req.body;
         //const timestamp=new Date(Date.now());
-      const data = await blogInfo.create(req.body);
+      const data = await blogData.create(req.body);
         if(!data){
-            return res.status(201).json({
-                status: 201,
-                message: "blog not created"
-            })
+           return Response.errorMessage(res,"blog not created",417)
             
         }
-        return res.status(201).json({
-            status: 201,
-            message: "blog is successfully created",
-            data
-        })
+       return Response.successMessage(res,"you have created your blog",data,201)
     }
     static getAllBlog = async(req, res) => {
-        console.log("..........................................")
-        const data = await blogInfo.find();
-        
-        return res.status(200).json({
-            status: 200,
-            message: "this is all blogs",
-            data:data
-         })
+       
+        const data = await blogData.find();
+      return  Response.successMessage(res,"this is all blogs",data,201)
 
 
         }
     static getOneBlog =async (req, res) => {
         const blogid=req.params.id;
-         const data = await blogInfo.findById(blogid);
+         const data = await blogData.findById(blogid);
         if(!data){
-           return res.status(201).json({
-              status: 201,
-                message: "we don't have that blog "
-            })
+       return Response.errorMessage(res,"we don't have that blog",417)
             
         }
-        return res.status(201).json({
-            status: 201,
-            message: "you 've got one blog  ",
-            data
-        })
+      return  Response.successMessage(res,"you 've got one blog",data,201)
 
 
         
     
-               }
+    }
                static deleteOneBlog =async (req, res) => {
                 const blogid=req.params.id; 
-                const dataindex =await blogInfo.findByIdAndDelete(blogid) 
+                const dataindex =await blogData.findByIdAndDelete(blogid) 
                 if(!dataindex){
-                    return res.status(404).json({
-                        status: 404,
-                    message: "we can't delete what we don't have  "
-                    })
+                    return Response.errorMessage(res,"we don't have that blog",417)
+                    
                 }
-                return res.status(201).json({
-                    status: 201,
-                    message: "you have deleted your blog "
-                })
+      return  Response.successMessage(res,"you have deleted your blog ",data,201)
                 
             }
             static upDate =async (req, res) => {
@@ -80,24 +57,21 @@ class blogcontroller {
         
                 
                
-                const data = await blogInfo.findByIdAndUpdate(blogid,{
+                const data = await blogData.findByIdAndUpdate(blogid,{
                     title:title,
                     content:content
                 });
 
                 if(!data){
+
                     return res.status(417).json({
                         status: 417,
                         message: "update failed"
                     })
                     
                 }
-                const dataUpdated=await blogInfo.findById(blogid)
-                return res.status(200).json({
-                    status: 200,
-                    message: "updated ",
-                    data:dataUpdated
-                })
+                const dataUpdated=await blogData.findById(blogid)
+                return  Response.successMessage(res," updated",data,201)
         
         
                 
