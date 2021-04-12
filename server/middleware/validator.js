@@ -13,8 +13,8 @@ class Validator {
                 message: "blog not exist"
             })
         }
-        else if (useridFromToken == blog.userid._id) {
-            return next()
+        else if (useridFromToken == blog.userId._id) {
+            return next();
         }
         return res.status(401).json({
             status: 401,

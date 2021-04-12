@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
 
     department: String,
     address: { type: String, default: "Rwanda" },
+    passwordChangeTime: {
+        type: String,
+        default: Date.now()
+    }
 })
 const userInfo = mongoose.model("user", userSchema);
 export default userInfo

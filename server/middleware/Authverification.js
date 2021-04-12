@@ -1,6 +1,7 @@
 import { dataFromToken } from "../Helpers/Token";
 import Usercontroller from"../controller/Authcontroller";
 import userInfo from "../model/Usermodel";
+import Response from "../Helpers/response"
 export const verifAuth=async (req,res,next)=>{
     const token=req.header("x-auth-token");
     if(!token){
@@ -21,7 +22,10 @@ export const verifAuth=async (req,res,next)=>{
            error:"you are not user" 
         })
     }
-    req.body.userid=user.id
+    if(user.passwordChangeTime !=data.passwordChangeTime){
+   return Response.errorMessage(res,"please pre login",417)
+    }
+    req.body.userId=user.id
     return next()
 
     }catch(e){

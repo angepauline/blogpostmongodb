@@ -1,24 +1,31 @@
 import mongoose from 'mongoose'
-const blogpostSchema = new mongoose.Schema(
+const blogSchema = new mongoose.Schema(
     {
         title: String,
 
         content: String,
-        userid: {
+        userId: {
             type: mongoose.Schema.ObjectId,
             ref: "user",
             required: [true, "user is required"]
         },
-        timestamp: String
+        commentId:[{type:mongoose.Schema.ObjectId,
+            ref:"comment"
+        }],
+        timestamp:String
     }
 )
-blogpostSchema.pre(/^find/, function(next) {
+blogSchema.pre(/^find/, function(next) {
     this.populate({
-        path: "userid",
+        path: "userId",
         select: "firstName email"
 
     })
+    this.populate({
+        path:"commentId",
+        select:"content user timestamp"
+    })
     next();
 })
-const blogInfo = mongoose.model("blogpost", blogpostSchema);
-export default blogInfo;
+const blogData = mongoose.model("blog", blogSchema);
+export default blogData;
